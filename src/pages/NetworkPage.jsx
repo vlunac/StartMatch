@@ -12,7 +12,6 @@ import { Search } from "lucide-react";
 export default function NetworkPage() {
   const { role } = useAuth();
   const isInvestor = role === "investor";
-
   const [items,      setItems]      = useState([]);
   const [filtered,   setFiltered]   = useState([]);
   const [loading,    setLoading]    = useState(true);
@@ -43,52 +42,50 @@ export default function NetworkPage() {
       <div className="fade-up" style={{ marginBottom: 24 }}>
         <h1 className="page-heading">My Network</h1>
         <p style={{ color: "var(--text-secondary)", fontSize: 14 }}>
-          {isInvestor
-            ? "Startups in your watch list and network."
-            : "Investors who have shown interest in your profile."}
+          {isInvestor ? "Startups in your watch list and network." : "Investors who have shown interest in your profile."}
         </p>
       </div>
 
       {/* Search bar */}
-      <div className="fade-up d1" style={{ position: "relative", marginBottom: 24, maxWidth: 400 }}>
-        <Search size={15} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-secondary)" }} />
+      <div className="fade-up d1" style={{ position: "relative", marginBottom: 24, maxWidth: 420 }}>
+        <Search size={15} strokeWidth={2.5} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-secondary)", pointerEvents: "none" }} />
         <input
           className="form-input"
           placeholder="Search by name, industry, stage…"
           value={query}
           onChange={e => handleSearch(e.target.value)}
-          style={{ paddingLeft: 36 }}
+          style={{ paddingLeft: 38 }}
         />
       </div>
 
       {loading && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-          {[1,2,3,4,5,6].map(i => <div key={i} className="card skeleton" style={{ height: 200 }} />)}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+          {[1,2,3,4,5,6].map(i => <div key={i} className="card skeleton" style={{ height: 220 }} />)}
         </div>
       )}
 
       {!loading && filtered.length === 0 && (
-        <div style={{ textAlign: "center", padding: "80px 20px", color: "var(--text-secondary)" }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>🌐</div>
-          <p style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", marginBottom: 8 }}>No connections yet</p>
-          <p style={{ fontSize: 13, marginBottom: 20 }}>Start by browsing startups and connecting.</p>
-          <a href="/search" className="btn btn-coral" style={{ textDecoration: "none" }}>Browse Now</a>
+        <div style={{ textAlign: "center", padding: "80px 20px" }}>
+          <div style={{ fontSize: 56, marginBottom: 16 }}>🐟</div>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 700, color: "var(--color-moss-dark)", marginBottom: 8 }}>No connections yet.</h3>
+          <p style={{ color: "var(--text-secondary)", fontSize: 13, marginBottom: 20 }}>Start by browsing startups and connecting.</p>
+          <a href="/search" className="btn btn-goldfish" style={{ textDecoration: "none" }}>Browse Now 🐟</a>
         </div>
       )}
 
       {!loading && filtered.length > 0 && (
         isInvestor ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-            {filtered.map((s, i) => (
-              <div key={s.id} style={{ animation: `fadeUp 0.3s ${i * 0.04}s both ease` }}>
-                <StartupCard startup={s} onOpen={setSelected} showMatchScore />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+            {filtered.map((s,i) => (
+              <div key={s.id} style={{ animation: `fadeUp 0.3s ${i*0.04}s both ease` }}>
+                <StartupCard startup={s} onOpen={setSelected} />
               </div>
             ))}
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-            {filtered.map((inv, i) => (
-              <div key={inv.id} style={{ animation: `fadeUp 0.3s ${i * 0.04}s both ease` }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+            {filtered.map((inv,i) => (
+              <div key={inv.id} style={{ animation: `fadeUp 0.3s ${i*0.04}s both ease` }}>
                 <InvestorCard investor={inv} onChat={setChatTarget} />
               </div>
             ))}
@@ -96,8 +93,8 @@ export default function NetworkPage() {
         )
       )}
 
-      {selected   && <StartupDetailPage startup={selected} onClose={() => setSelected(null)} />}
-      {chatTarget && <ConnectionModal target={chatTarget} onClose={() => setChatTarget(null)} />}
+      {selected    && <StartupDetailPage startup={selected} onClose={() => setSelected(null)} />}
+      {chatTarget  && <ConnectionModal target={chatTarget} onClose={() => setChatTarget(null)} />}
     </div>
   );
 }
