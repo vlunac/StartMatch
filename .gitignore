@@ -23,7 +23,23 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment variables
+.env
+.env.*
+
+!.env.example
+
 # Python environments
 venv/
 .venv/
 __pycache__/
+
+# Scratch/investigation files
+backend_files.txt
+backend_log.txt
+branch_contains.txt
+branches.txt
+branches2.txt
+gemini_commits.txt
+main_files.txt
+mongo_commits.txt
