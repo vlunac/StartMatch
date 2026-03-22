@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { MapPin, Sparkles } from "lucide-react";
 import { stageCssClass } from "../api/mockData";
-import { getAiSummary } from "../api/startups";
+import { getAiSummary } from "../api/summaries";
 
 export default function StartupCard({ startup, onOpen }) {
-  const [summary, setSummary] = useState(startup.aiSummary || null);
+  const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(false);
 
   
@@ -13,7 +13,7 @@ export default function StartupCard({ startup, onOpen }) {
     e.stopPropagation();
     if (summary) return;
     setLoading(true);
-    setSummary(await getAiSummary(startup.id));
+    setSummary(await getAiSummary(startup));
     setLoading(false);
   }
 

@@ -1,5 +1,6 @@
 // src/api/startups.js
 import { mockStartups } from "./mockData";
+import { getAiSummary as getAiSummaryFromApi } from "./summaries";
 export async function getStartups(filters = {}) {
   await new Promise(r => setTimeout(r, 450));
   let results = [...mockStartups];
@@ -11,6 +12,6 @@ export async function getStartups(filters = {}) {
   return results;
 }
 export async function getStartupById(id) { await new Promise(r => setTimeout(r, 200)); return mockStartups.find(s => s.id === Number(id)) || null; }
-export async function getAiSummary(startupId) { await new Promise(r => setTimeout(r, 900)); const s = mockStartups.find(s => s.id === Number(startupId)); return s?.aiSummary || "Summary unavailable."; }
+export async function getAiSummary(startup) { return getAiSummaryFromApi(startup); }
 export async function createStartup(data) { await new Promise(r => setTimeout(r, 600)); return { ...data, id: Date.now() }; }
 export async function updateStartup(id, data) { await new Promise(r => setTimeout(r, 600)); return { id, ...data }; }

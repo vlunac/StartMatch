@@ -1,8 +1,8 @@
-# StartMatch — Product Requirements Document
+# Dorado — Product Requirements Document
 
 ## Concept
 
-StartMatch is a social-media-style platform that connects investors with founders who are building startups and need funding.
+Dorado is a social-media-style platform that connects investors with founders who are building startups and need funding.
 
 ## Problem
 
